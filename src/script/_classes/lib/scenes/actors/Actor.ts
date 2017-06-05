@@ -7,7 +7,7 @@ import Sprite  = require("./Sprite");
 /**
  * Actor class
  * 
- * @date 21-may-2017
+ * @date 05-jun-2017
  */
 
 interface Animation {
@@ -25,11 +25,15 @@ class Actor {
   public scale:Vector2 = new Vector2(1);
   public offset:Vector2 = new Vector2();
   public size:Vector2 = new Vector2(32);
+  public rotation:number=0;
   
   public velocity:Vector2 = new Vector2();
   public gravity:Vector2;
   public momentum:number=1;
   public friction:number=0;
+  public angularVelocity:number=0;
+  public angularMomentum:number=1;
+  public angularFriction:number=0;
 
   public animations = {};
   public animation:Animation;
@@ -83,18 +87,30 @@ class Actor {
       }
       this.frame = this.animation.frames[Math.floor(this.animationFrame)];
     }
-    if (!this.momentum) { this.velocity.set(0); return; }
-    this.velocity.add(this.gravity || this.scene.gravity);
-    if (this.friction) {
-      let mag = this.velocity.magnitude;
-      if (mag > this.friction) {
-        this.velocity.magnitude = mag - this.friction;
-      } else {
-        this.velocity.set(0);
+    if (this.momentum) {
+      this.velocity.add(this.gravity || this.scene.gravity);
+      if (this.friction) {
+        let mag = this.velocity.magnitude;
+        if (mag > this.friction) {
+          this.velocity.magnitude = mag - this.friction;
+        } else {
+          this.velocity.set(0);
+        }
       }
+      this.velocity.multiplyXY(this.momentum);
+      this.position.add(this.velocity);
     }
-    this.velocity.multiplyXY(this.momentum);
-    this.position.add(this.velocity);
+    if (this.angularMomentum) {
+      if (this.angularFriction) {
+        if (this.angularVelocity > this.angularFriction) {
+          this.angularVelocity -= this.angularFriction;
+        } else {
+          this.angularVelocity = 0;
+        }
+      }
+      this.angularVelocity *= this.angularMomentum;
+      this.rotation += this.angularVelocity;
+    }
   }
 
   render() {
