@@ -13,14 +13,10 @@ class MyGame extends Game {
 
   constructor(container:string|HTMLElement) {
     super(container);
-    this.frameRate = 12;
+    this.frameRate = 120;
     this.addScene("main", new MyScene());
     this.joypad.enable();
     this.startScene("main");
-  }
-
-  render() {
-    super.render();
   }
 
 }

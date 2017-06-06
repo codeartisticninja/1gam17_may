@@ -3,7 +3,7 @@ import Scene       = require("../lib/scenes/Scene");
 import myGame      = require("../MyGame");
 import Script      = require("../lib/utils/Script");
 
-import MyActor     = require("./actors/MyActor");
+import Spinner     = require("./actors/Spinner");
 
 /**
  * MyScene class
@@ -14,8 +14,8 @@ class MyScene extends Scene {
   public script = new Script();
 
   constructor() {
-    super("assets/maps/test.json");
-    this.actorTypes["MyActor"] = MyActor;
+    super("assets/maps/spinner.json");
+    this.actorTypes["Spinner"] = Spinner;
   }
 
   reset() {

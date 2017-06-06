@@ -14,3 +14,7 @@ When developing
 ---------------
 
     $ npm i && npm run watch
+
+or when working with git
+
+    $ git pull && npm i && git push && npm run watch

@@ -1,6 +1,6 @@
-Game of the month - May 2017
-============================
-Best game ever made..?
+Killer App 2017
+===============
+Game of the year 2017!
 
 Credits
 -------
