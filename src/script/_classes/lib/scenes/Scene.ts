@@ -11,7 +11,7 @@ import Text        = require("./actors/Text");
 /**
  * Scene class
  * 
- * @date 05-jun-2017
+ * @date 06-jun-2017
  */
 
 class Scene {
@@ -84,6 +84,7 @@ class Scene {
       g.translate(actor.position.x, actor.position.y);
       g.rotate(actor.rotation);
       g.scale(actor.scale.x, actor.scale.y);
+      g.globalAlpha = actor.opacity;
       actor.render();
       g.restore();
     }

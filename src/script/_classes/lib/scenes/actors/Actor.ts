@@ -7,7 +7,7 @@ import Sprite  = require("./Sprite");
 /**
  * Actor class
  * 
- * @date 05-jun-2017
+ * @date 06-jun-2017
  */
 
 interface Animation {
@@ -26,6 +26,7 @@ class Actor {
   public offset:Vector2 = new Vector2();
   public size:Vector2 = new Vector2(32);
   public rotation:number=0;
+  public opacity:number=1;
   
   public velocity:Vector2 = new Vector2();
   public gravity:Vector2;
