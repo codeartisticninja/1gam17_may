@@ -21,15 +21,18 @@ class Spinner extends Actor {
       this.setAnchor(this.size.x/2, this.size.y/2);
       this.position.set(this.scene.game.canvas.width/2,this.scene.game.canvas.height/2);
       this.angularMomentum = .999;
-      for (let i=0;i<1;i++) {
-        let actor = new Actor();
-        actor.type = "blur";
+      for (let i=0;i<2;i++) {
+        var actor = new Actor();
+        actor.type = i==0?"cap":"blur";
         actor.sprite = this.sprite;
-        actor.frame = 0;
+        actor.frame = i==0?2:0;
         actor.position = this.position;
         actor.offset = this.offset;
         actor.size = this.size;
         this.scene.addActor(actor);
+        if (actor.type === "blur") {
+          this.scene.bringActorToBack(actor);
+        }
       }
       this._inited = true;
     }
