@@ -15,7 +15,7 @@ if (!Element.prototype.requestFullscreen) {
 /**
  * BaseGameApp class
  * 
- * @date 20-may-2017
+ * @date 07-jun-2017
  */
 
 class Game {
@@ -95,6 +95,13 @@ class Game {
     if (this.scene) this.scene.enter();
   }
 
+  pause() {
+    cancelAnimationFrame(this._tickTO);
+  }
+  resume() {
+    this._tick();
+  }
+
   /*
     _privates
   */
@@ -161,8 +168,6 @@ class Game {
 
     this._hideCursor = this._hideCursor.bind(this);
     this.container.addEventListener("mousemove", this._wakeCursor.bind(this));
-
-    // this.eng.scale.setResizeCallback(this._scaleDown, this);
   }
 
   private _wakeCursor() {

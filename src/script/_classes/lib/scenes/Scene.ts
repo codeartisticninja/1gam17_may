@@ -11,7 +11,7 @@ import Text        = require("./actors/Text");
 /**
  * Scene class
  * 
- * @date 06-jun-2017
+ * @date 07-jun-2017
  */
 
 class Scene {
@@ -118,6 +118,34 @@ class Scene {
       actor.scene = null;
     });
     return actor;
+  }
+
+  bringActorToFront(actor:Actor, ...fromGroup:Array<Actor>[]) {
+    setTimeout(()=>{
+      fromGroup.push(this.actors);
+      fromGroup.push(this.actorsByType[actor.type]);
+      for (var group of fromGroup) {
+        var i = group.indexOf(actor);
+        if (i !== -1) {
+          group.splice(i,1);
+          group.push(actor);
+        }
+      }
+    });
+  }
+
+  bringActorToBack(actor:Actor, ...fromGroup:Array<Actor>[]) {
+    setTimeout(()=>{
+      fromGroup.push(this.actors);
+      fromGroup.push(this.actorsByType[actor.type]);
+      for (var group of fromGroup) {
+        var i = group.indexOf(actor);
+        if (i !== -1) {
+          group.splice(i,1);
+          group.unshift(actor);
+        }
+      }
+    });
   }
 
   addSprite(sprite:Sprite) {

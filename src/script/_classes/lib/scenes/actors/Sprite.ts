@@ -5,7 +5,7 @@ import Vector2 = require("../../utils/Vector2");
 /**
  * Sprite class
  * 
- * @date 18-may-2017
+ * @date 07-jun-2017
  */
 
 class Sprite {
@@ -37,7 +37,11 @@ class Sprite {
   }
 
   draw(col:number, row=0, topLeft:Vector2, size:Vector2=this.size) {
-    while (col > this.columns) {
+    if (!this.img.width) return;
+    if (!this.columns) {
+      this.columns = Math.floor((this.img.width - this.margin)/(this.size.x + this.spacing));
+    }
+    while (col >= this.columns) {
       col -= this.columns;
       row++;
     }
