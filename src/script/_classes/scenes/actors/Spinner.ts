@@ -7,19 +7,25 @@ import Actor = require("../../lib/scenes/actors/Actor");
 
 class Spinner extends Actor {
 
-  constructor(obj:Object) {
-    super(obj);
+  constructor() {
+    super();
+    document.addEventListener("mousedown", this.spin.bind(this));
+    document.addEventListener("touchstart", this.spin.bind(this));
   }
 
   update() {
     if (!this._inited) {
+      this.sprite = this.scene.spritesByName["spinner"];
+      this.size.copyFrom(this.sprite.size);
+      this.frame = 1;
       this.setAnchor(this.size.x/2, this.size.y/2);
       this.position.set(this.scene.game.canvas.width/2,this.scene.game.canvas.height/2);
       this.angularMomentum = .999;
-      for (let i=0;i<64;i++) {
+      for (let i=0;i<1;i++) {
         let actor = new Actor();
         actor.type = "blur";
-        actor["_gid"] = this["_gid"];
+        actor.sprite = this.sprite;
+        actor.frame = 0;
         actor.position = this.position;
         actor.offset = this.offset;
         actor.size = this.size;
@@ -31,17 +37,21 @@ class Spinner extends Actor {
     for(let actor of this.scene.actorsByType["blur"]) {
       if (lastActor) {
         lastActor.rotation = actor.rotation;
-        lastActor.opacity = actor.opacity *.75;
+        lastActor.opacity = actor.opacity *.5;
       }
       lastActor = actor;
     }
     var joy = this.scene.game.joypad;
     if (joy.delta.fire > 0) {
-      this.angularVelocity += .1;
+      this.spin();
     }
     super.update();
     lastActor.rotation = this.rotation;
     lastActor.opacity = this.opacity *.75;
+  }
+
+  spin() {
+    this.angularVelocity += .1;
   }
 
   /*
