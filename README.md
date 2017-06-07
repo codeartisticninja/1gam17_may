@@ -1,6 +1,6 @@
 Killer App 2017
 ===============
-Game of the year 2017!
+This is what the kids are into these days! Hours of fun! Totally gonna win Game Of The Year 2017! ;)
 
 Credits
 -------
