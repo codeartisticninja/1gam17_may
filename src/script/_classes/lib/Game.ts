@@ -11,11 +11,15 @@ if (!Element.prototype.requestFullscreen) {
         Element.prototype["mozRequestFullScreen"] ||
         Element.prototype["msRequestFullscreen"];
 }
+if (!window.requestAnimationFrame) {
+  window.requestAnimationFrame = webkitRequestAnimationFrame || function(cb:Function){ return setTimeout(cb, 32, Date.now()) };
+  window.cancelAnimationFrame = webkitCancelAnimationFrame || clearTimeout;
+}
 
 /**
  * BaseGameApp class
  * 
- * @date 07-jun-2017
+ * @date 08-jun-2017
  */
 
 class Game {
